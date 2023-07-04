@@ -8,10 +8,10 @@ app.use(bodyParser.json());
 // Import PostgreSQL library
 const { Pool } = require('pg');
 const pool = new Pool({
-  user: 'vincent',
-  host: 'localhost',
-  database: 'onlinebookstore',
-  password: '',
+  user: 'your_username',
+  host: 'your_host',
+  database: 'your_database',
+  password: 'your_password',
   port: 5432,
 });
 
@@ -115,4 +115,3 @@ app.delete('/books/:id', (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
-
