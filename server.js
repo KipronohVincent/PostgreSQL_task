@@ -8,10 +8,10 @@ app.use(bodyParser.json());
 // Import PostgreSQL library
 const { Pool } = require('pg');
 const pool = new Pool({
-  user: 'root',
+  user: 'vincent',
   host: 'localhost',
   database: 'onlinebookstore',
-  password: 'your_password',
+  password: '',
   port: 5432,
 });
 
