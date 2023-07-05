@@ -67,7 +67,7 @@ app.post('/books', async (req, res) => {
 });
 
 // Update the price of a specific book
-app.put('/books/3', async (req, res) => {
+app.put('/books/:id', async (req, res) => {
   const id = req.params.id;
   const { price } = req.body;
   try {
