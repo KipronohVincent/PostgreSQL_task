@@ -32,7 +32,7 @@ app.get('/books', async (req, res) => {
 });
 
 // Retrieve all authors who have written books in a specific category
-app.get('/authors/Horror', async (req, res) => {
+app.get('/authors/:category', async (req, res) => {
   const category = req.params.category;
   try {
     const client = await pool.connect();
