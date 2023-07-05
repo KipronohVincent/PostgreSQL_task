@@ -81,7 +81,7 @@ app.put('/books/:id', async (req, res) => {
 });
 
 // Delete a book from the database
-app.delete('/books/8', async (req, res) => {
+app.delete('/books/:id', async (req, res) => {
   const id = req.params.id;
   try {
     const client = await pool.connect();
