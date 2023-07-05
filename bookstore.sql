@@ -69,9 +69,3 @@ WHERE id = book_id_value;
 -- Delete a book from the database. (Replace the placeholder value with actual value.)
 DELETE FROM books
 WHERE id = book_id_value;
-
- user: 'vincent',
-  host: 'localhost',
-  database: 'onlinebookstore',
-  password: 'new_password',
-  port: 5432,
