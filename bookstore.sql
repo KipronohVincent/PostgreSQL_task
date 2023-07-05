@@ -1,65 +1,77 @@
 -- create Database
 CREATE DATABASE onlinebookstore;
 
--- Create tables
-CREATE TABLE categories (
-  id SERIAL PRIMARY KEY,
-  name VARCHAR(255) NOT NULL
-);
-
+-- Create the authors table
 CREATE TABLE authors (
   id SERIAL PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL
 );
 
+-- Create the categories table
+CREATE TABLE categories (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255) NOT NULL
+);
+
+-- Create the books table with foreign key references
 CREATE TABLE books (
   id SERIAL PRIMARY KEY,
   title VARCHAR(255) NOT NULL,
-  author_id INTEGER NOT NULL REFERENCES authors(id),
-  category_id INTEGER NOT NULL REFERENCES categories(id),
+  author_id INT NOT NULL,
+  category_id INT NOT NULL,
   price DECIMAL(10, 2) NOT NULL,
-  publication_date DATE NOT NULL
+  publication_date DATE NOT NULL,
+  FOREIGN KEY (author_id) REFERENCES authors(id),
+  FOREIGN KEY (category_id) REFERENCES categories(id)
 );
 
--- Insert sample data
-INSERT INTO categories (name) VALUES
-  ('Fiction'),
-  ('Non-Fiction');
-
+-- Insert sample authors
 INSERT INTO authors (name, email) VALUES
-  ('Author 1', 'author1@example.com'),
-  ('Author 2', 'author2@example.com'),
-  ('Author 3', 'author3@example.com');
+  ('J.K. Rowling', 'jkrowling@example.com'),
+  ('George R.R. Martin', 'grrmartin@example.com'),
+  ('Stephen King', 'stephenking@example.com');
 
+-- Insert sample categories
+INSERT INTO categories (name) VALUES
+  ('Fantasy'),
+  ('Science Fiction'),
+  ('Horror');
+
+-- Insert sample books
 INSERT INTO books (title, author_id, category_id, price, publication_date) VALUES
-  ('Book 1', 1, 1, 19.99, '2022-01-01'),
-  ('Book 2', 2, 1, 14.99, '2022-02-01'),
-  ('Book 3', 3, 2, 9.99, '2022-03-01');
+  ('Harry Potter and the Philosopher''s Stone', 1, 1, 19.99, '1997-06-26'),
+  ('A Game of Thrones', 2, 1, 24.99, '1996-08-01'),
+  ('The Shining', 3, 3, 14.99, '1977-01-28');
 
--- SQL queries
 -- Retrieve all books along with their corresponding author and category information.
-SELECT b.title, a.name AS author, c.name AS category
-FROM books b
-JOIN authors a ON b.author_id = a.id
-JOIN categories c ON b.category_id = c.id;
+SELECT books.title, authors.name AS author, categories.name AS category
+FROM books
+JOIN authors ON books.author_id = authors.id
+JOIN categories ON books.category_id = categories.id;
 
--- Retrieve all authors who have written books in a specific category.
-SELECT DISTINCT a.name
-FROM books b
-JOIN authors a ON b.author_id = a.id
-JOIN categories c ON b.category_id = c.id
-WHERE c.name = 'Fiction';
+-- Retrieve all authors who have written books in a specific category. (Let's assume the category name is 'Fantasy'.)
+SELECT authors.name
+FROM authors
+JOIN books ON authors.id = books.author_id
+JOIN categories ON books.category_id = categories.id
+WHERE categories.name = 'Fantasy';
 
--- Insert a new book into the database with the necessary author and category references.
+--  Insert a new book into the database with the necessary author and category references. (Replace the placeholder values with actual values.)
 INSERT INTO books (title, author_id, category_id, price, publication_date)
-VALUES ('New Book', 1, 2, 24.99, '2022-04-01');
+VALUES ('New Book Title', author_id_value, category_id_value, 9.99, '2023-07-01');
 
--- Update the price of a specific book.
+--  Update the price of a specific book. (Replace the placeholder values with actual values.)
 UPDATE books
-SET price = 29.99
-WHERE id = 1;
+SET price = new_price_value
+WHERE id = book_id_value;
 
--- Delete a book from the database.
+-- Delete a book from the database. (Replace the placeholder value with actual value.)
 DELETE FROM books
-WHERE id = 3;
+WHERE id = book_id_value;
+
+ user: 'vincent',
+  host: 'localhost',
+  database: 'onlinebookstore',
+  password: 'new_password',
+  port: 5432,
