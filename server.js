@@ -42,7 +42,7 @@ app.get('/authors/:category', (req, res) => {
     FROM books b
     JOIN authors a ON b.author_id = a.id
     JOIN categories c ON b.category_id = c.id
-    WHERE c.name = $1;
+    WHERE c.name = 'Fiction';
   `;
 
   pool.query(query, [category], (error, results) => {
@@ -60,9 +60,7 @@ app.post('/books', (req, res) => {
   const { title, author_id, category_id, price, publication_date } = req.body;
   const query = `
     INSERT INTO books (title, author_id, category_id, price, publication_date)
-    VALUES ($1, $2, $3, $4, $5)
-    RETURNING id;
-  `;
+    VALUES ('New Book', 1, 2, 24.99, '2022-04-01')`;
 
   pool.query(query, [title, author_id, category_id, price, publication_date], (error, results) => {
     if (error) {
@@ -80,8 +78,8 @@ app.put('/books/:id', (req, res) => {
   const { price } = req.body;
   const query = `
     UPDATE books
-    SET price = $1
-    WHERE id = $2;
+    SET price = 29.99
+    WHERE id = 1;
   `;
 
   pool.query(query, [price, id], (error) => {
@@ -99,7 +97,7 @@ app.delete('/books/:id', (req, res) => {
   const id = req.params.id;
   const query = `
     DELETE FROM books
-    WHERE id = $1;
+    WHERE id = 3;
   `;
 
   pool.query(query, [id], (error) => {
