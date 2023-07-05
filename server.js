@@ -32,17 +32,14 @@ app.get('/books', async (req, res) => {
 });
 
 // Retrieve all authors who have written books in a specific category
-app.get('/authors/:category', async (req, res) => {
-  const category = req.params.category;
+app.get('/authors/category/:category', async (req, res) => {
+  const { category } = req.params;
   try {
     const client = await pool.connect();
-    const result = await client.query(`
-      SELECT authors.name
-      FROM authors
-      JOIN books ON authors.id = books.author_id
-      JOIN categories ON books.category_id = categories.id
-      WHERE categories.name = $1
-    `, [category]);
+    const result = await client.query(
+      'SELECT * FROM authors WHERE id IN (SELECT author_id FROM books WHERE category_id = (SELECT id FROM categories WHERE name = $1))',
+      [category]
+    );
     client.release();
     res.json(result.rows);
   } catch (error) {
