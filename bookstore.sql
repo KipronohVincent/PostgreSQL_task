@@ -57,15 +57,15 @@ JOIN books ON authors.id = books.author_id
 JOIN categories ON books.category_id = categories.id
 WHERE categories.name = 'Fantasy';
 
---  Insert a new book into the database with the necessary author and category references. (Replace the placeholder values with actual values.)
+--  Insert a new book into the database with the necessary author and category references. 
 INSERT INTO books (title, author_id, category_id, price, publication_date)
-VALUES ('New Book Title', author_id_value, category_id_value, 9.99, '2023-07-01');
+VALUES ('exel', 1, 3, 9.99, '2023-07-01');
 
---  Update the price of a specific book. (Replace the placeholder values with actual values.)
+--  Update the price of a specific book. 
 UPDATE books
-SET price = new_price_value
-WHERE id = book_id_value;
+SET price = 23.4
+WHERE id = 3;
 
--- Delete a book from the database. (Replace the placeholder value with actual value.)
+-- Delete a book from the database. 
 DELETE FROM books
-WHERE id = book_id_value;
+WHERE id = 8;
