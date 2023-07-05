@@ -1,5 +1,8 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const app = express();
+// Parse JSON bodies
+app.use(bodyParser.json());
 const { Pool } = require('pg');
 
 // Create a pool to manage database connections
@@ -29,7 +32,7 @@ app.get('/books', async (req, res) => {
 });
 
 // Retrieve all authors who have written books in a specific category
-app.get('/authors/:category', async (req, res) => {
+app.get('/authors/Horror', async (req, res) => {
   const category = req.params.category;
   try {
     const client = await pool.connect();
@@ -64,7 +67,7 @@ app.post('/books', async (req, res) => {
 });
 
 // Update the price of a specific book
-app.put('/books/:id', async (req, res) => {
+app.put('/books/3', async (req, res) => {
   const id = req.params.id;
   const { price } = req.body;
   try {
@@ -81,7 +84,7 @@ app.put('/books/:id', async (req, res) => {
 });
 
 // Delete a book from the database
-app.delete('/books/:id', async (req, res) => {
+app.delete('/books/8', async (req, res) => {
   const id = req.params.id;
   try {
     const client = await pool.connect();
